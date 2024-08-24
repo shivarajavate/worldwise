@@ -1,22 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../contexts/AuthContext";
+import Button from "../components/Button.jsx";
+import Message from "../components/Message.jsx";
 import PageNav from "../components/PageNav.jsx";
 import styles from "./Login.module.css";
 
 export default function Login() {
-  // PRE-FILL FOR DEV PURPOSES
+  const navigate = useNavigate();
+  const { isAuthenticated, error, reset, login } = useAuthContext();
   const [email, setEmail] = useState("jack@example.com");
-  const [password, setPassword] = useState("qwerty");
+  const [password, setPassword] = useState("Jack");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/app", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  function handleChangeEmail(event) {
+    setEmail(event.target.value);
+    reset();
+  }
+
+  function handleChangePassword(event) {
+    setPassword(event.target.value);
+    reset();
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (email && password) login(email, password);
+  }
 
   return (
     <main className={styles.login}>
       <PageNav />
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.row}>
           <label htmlFor="email">Email address</label>
           <input
             type="email"
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChangeEmail}
             value={email}
           />
         </div>
@@ -26,15 +52,16 @@ export default function Login() {
           <input
             type="password"
             id="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChangePassword}
             value={password}
           />
         </div>
 
         <div>
-          <button>Login</button>
+          <Button type="primary">Login</Button>
         </div>
       </form>
+      <div>{error && <Message message={error} />}</div>
     </main>
   );
 }
