@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./CityItem.module.css";
+import { useCitiesContext } from "../contexts/CitiesContext.jsx";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -23,17 +24,29 @@ CityItem.propTypes = {
 };
 
 export default function CityItem({ city }) {
+  const { currentCity, deleteCity } = useCitiesContext();
+
   const { id, cityName, emoji, date, position } = city;
+
+  async function handleDelete(event) {
+    event.preventDefault();
+    await deleteCity(id);
+  }
+
   return (
     <li>
       <NavLink
-        className={styles.cityItem}
+        className={`${styles.cityItem} ${
+          id === currentCity.id ? styles["cityItem--active"] : ""
+        }`}
         to={`${id}?lat=${position.lat}&lng=${position.lng}`}
       >
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>{formatDate(date)}</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button className={styles.deleteBtn} onClick={handleDelete}>
+          &times;
+        </button>
       </NavLink>
     </li>
   );

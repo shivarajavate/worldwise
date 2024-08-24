@@ -1,21 +1,12 @@
-import PropTypes from "prop-types";
 import Spinner from "./Spinner.jsx";
 import Message from "./Message.jsx";
 import CountryItem from "./CountryItem.jsx";
 import styles from "./CountryList.module.css";
+import { useCitiesContext } from "../contexts/CitiesContext.jsx";
 
-CountryList.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.string,
-  cities: PropTypes.arrayOf(
-    PropTypes.shape({
-      emoji: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};
+export default function CountryList() {
+  const { isLoading, error, cities } = useCitiesContext();
 
-export default function CountryList({ isLoading, error, cities }) {
   if (isLoading) {
     return <Spinner />;
   }

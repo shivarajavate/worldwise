@@ -8,7 +8,6 @@ Button.propTypes = {
 };
 
 export default function Button({ children, onClick, type }) {
-  console.log(type);
   return (
     <button className={`${styles.btn} ${styles[type]}`} onClick={onClick}>
       {children}

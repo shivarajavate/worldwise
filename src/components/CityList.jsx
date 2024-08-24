@@ -1,23 +1,12 @@
-import PropTypes from "prop-types";
 import Spinner from "./Spinner.jsx";
 import Message from "./Message.jsx";
 import CityItem from "./CityItem.jsx";
 import styles from "./CityList.module.css";
+import { useCitiesContext } from "../contexts/CitiesContext.jsx";
 
-CityList.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.string,
-  cities: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-      population: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-};
+export default function CityList() {
+  const { isLoading, error, cities } = useCitiesContext();
 
-export default function CityList({ isLoading, error, cities }) {
   if (isLoading) {
     return <Spinner />;
   }
