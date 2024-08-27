@@ -47,6 +47,30 @@
         "lng": 76.94824218750001
       },
       "id": 98443201
+    },
+    {
+      "cityName": "Mahibadhoo",
+      "country": "Maldives",
+      "emoji": "🇲🇻",
+      "date": "2024-08-27T04:56:01.126Z",
+      "notes": "",
+      "position": {
+        "lat": 3.5572827265412794,
+        "lng": 73.16894531250001
+      },
+      "id": 98443202
+    },
+    {
+      "cityName": "Camp Thunder Cove",
+      "country": "British Indian Ocean Territory (the)",
+      "emoji": "🇮🇴",
+      "date": "2024-08-27T04:56:33.557Z",
+      "notes": "",
+      "position": {
+        "lat": -5.397273407690904,
+        "lng": 71.80664062500001
+      },
+      "id": 98443203
     }
   ]
 }
